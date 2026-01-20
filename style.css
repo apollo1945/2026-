@@ -10,7 +10,6 @@
 * { margin:0; padding:0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 body { background: var(--bg-dark); color: var(--text-light); transition: 0.4s; overflow-x: hidden; }
 
-/* Fixed Navigation to stay away from content */
 .header-nav {
     position: sticky; top: 0; display: flex; justify-content: flex-end;
     gap: 12px; padding: 15px 20px; z-index: 1000; background: var(--bg-dark);
@@ -24,35 +23,28 @@ body { background: var(--bg-dark); color: var(--text-light); transition: 0.4s; o
 .profile-card { width: 100%; max-width: 420px; border-radius: 40px; padding: 30px 20px; text-align: center; }
 .glass { backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--border-line); }
 
-/* Avatar Styling */
-.profile-frame { position: relative; width: 125px; height: 125px; margin: 0 auto 20px; }
-.avatar { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--bg-dark); object-fit: cover; position: relative; z-index: 2; }
-.glow-border { position: absolute; inset: -5px; border-radius: 50%; background: linear-gradient(45deg, var(--accent-red), #00d2ff); animation: spin 4s linear infinite; }
+.profile-frame { position: relative; width: 125px; height: 125px; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; }
+.avatar { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--bg-dark); object-fit: cover; position: relative; z-index: 2; background: #000; }
+.glow-border { position: absolute; inset: -5px; border-radius: 50%; background: linear-gradient(45deg, var(--accent-red), #00d2ff, var(--accent-red)); animation: spin 4s linear infinite; z-index: 1; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 .dev-badge { background: var(--accent-red); color: #fff; font-size: 10px; font-weight: 800; padding: 7px 16px; border-radius: 50px; display: inline-block; margin-bottom: 15px; letter-spacing: 1px; }
 .main-name { font-size: 30px; font-weight: 900; margin-bottom: 8px; }
 .meta-row { font-size: 11px; color: var(--text-gray); margin-bottom: 25px; font-weight: bold; }
 
-/* Bio Card */
 .description-box { background: rgba(255,255,255,0.02); border-radius: 25px; padding: 22px; margin-bottom: 30px; text-align: justify; border: 1px solid var(--border-line); }
 .description-box p { font-size: 14.5px; line-height: 1.6; color: var(--text-gray); margin-bottom: 12px; }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
 .skill-tags span { font-size: 10px; background: rgba(255, 23, 68, 0.1); color: var(--accent-red); padding: 5px 12px; border-radius: 10px; font-weight: 800; }
 .korean-quote { text-align: center; font-weight: 800; color: var(--accent-red); font-size: 16px; }
 
-/* Button Stack */
 .action-stack { display: flex; flex-direction: column; gap: 14px; width: 100%; margin-bottom: 30px; }
-.action-btn { 
-    display: block; width: 100%; padding: 16px; border-radius: 18px; 
-    text-decoration: none; font-weight: 800; border: none; font-size: 15px; text-align: center; cursor: pointer;
-}
+.action-btn { display: block; width: 100%; padding: 16px; border-radius: 18px; text-decoration: none; font-weight: 800; border: none; font-size: 15px; text-align: center; cursor: pointer; }
 .fb-color { background: #1877f2; color: #fff; }
 .tk-color { background: #000; color: #fff; }
 .msg-color { background: #0084ff; color: #fff; }
 .qr-color { background: var(--text-light); color: var(--bg-dark); }
 
-/* Stats & Footer */
 .stats-footer { display: flex; justify-content: space-around; border-top: 1px solid var(--border-line); padding: 25px 0; }
 .stat-item strong { display: block; font-size: 20px; color: var(--accent-red); }
 .stat-item span { font-size: 10px; color: var(--text-gray); font-weight: bold; }
@@ -63,16 +55,11 @@ body { background: var(--bg-dark); color: var(--text-light); transition: 0.4s; o
 .rgb-signature { margin-top: 35px; font-size: 11px; font-weight: 900; animation: rgbFlow 6s infinite linear; }
 @keyframes rgbFlow { 0% {color: #ff0000;} 33% {color: #00ff00;} 66% {color: #0000ff;} 100% {color: #ff0000;} }
 
-/* Centered Modals */
-.modal-bg { 
-    position: fixed; inset: 0; background: rgba(0,0,0,0.9); 
-    display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px;
-}
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
 .modal-inner { width: 100%; max-width: 320px; padding: 35px; border-radius: 30px; text-align: center; }
 .modal-footer { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
 .modal-confirm { background: var(--accent-red); color: #fff; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; }
 .modal-cancel { background: transparent; color: var(--text-gray); border: none; font-weight: 700; cursor: pointer; }
 
-/* Toasts Fix */
 .notification-container { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 3000; width: 90%; max-width: 350px; pointer-events: none; }
-.toast { background: var(--accent-red); color: #fff; padding: 14px; border-radius: 15px; margin-bottom: 10px; font-size: 13px; font-weight: 800; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+.toast { background: var(--accent-red); color: #fff; padding: 14px; border-radius: 15px; margin-bottom: 10px; font-size: 13px; font-weight: 800; text-align: center; }
