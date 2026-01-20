@@ -6,263 +6,228 @@
     <title>Jerobie - Portfolio</title>
     
     <link rel="icon" href="https://imgur.com/5e5eBdd.jpg" type="image/jpeg">
-    
-    <meta property="og:title" content="Jerobie - Portfolio" />
-    <meta property="og:description" content="Official Portfolio of Jerobie" />
-    <meta property="og:image" content="https://imgur.com/5e5eBdd.jpg" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.4s ease, color 0.4s ease; }
 
         :root {
-            --bg-dark: #0a0a0a;
-            --accent-red: #ff1744;
+            --bg-main: #0a0a0a;
+            --container-bg: rgba(255, 255, 255, 0.03);
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #ff1744;
+            --border: rgba(255, 255, 255, 0.1);
+            --online: #43e97b;
+        }
+
+        [data-theme="light"] {
+            --bg-main: #f0f2f5;
+            --container-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #1c1e21;
+            --text-dim: #606770;
+            --border: rgba(0, 0, 0, 0.1);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-dark);
+            background: var(--bg-main);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative;
+            display: flex; justify-content: center; align-items: center;
+            overflow-x: hidden; position: relative;
+            padding: 40px 0;
         }
 
-        /* Recommendation: Animated Particle System */
-        .bg-particles {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-        }
+        .reveal { opacity: 0; transform: translateY(20px); }
 
-        .particle {
-            position: absolute;
-            background: var(--accent-red);
-            border-radius: 50%;
-            opacity: 0.2;
-            animation: floatUp 15s linear infinite;
-        }
+        .bg-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .particle { position: absolute; background: var(--accent); border-radius: 50%; opacity: 0.2; animation: floatUp 15s linear infinite; }
 
         @keyframes floatUp {
             0% { transform: translateY(110vh) scale(0); opacity: 0; }
-            50% { opacity: 0.4; }
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* Glass Container */
         .container {
-            max-width: 420px;
-            width: 90%;
-            background: var(--glass);
+            max-width: 440px; width: 90%;
+            background: var(--container-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px 25px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 1s ease-out;
+            border: 1px solid var(--border);
+            border-radius: 30px; padding: 40px 25px;
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            z-index: 10;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .profile-img-container { position: relative; width: 130px; height: 130px; margin: 0 auto 20px; }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-main); position: relative; z-index: 5; }
+        .glow-ring { position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; background: linear-gradient(45deg, var(--accent), #00f2fe, var(--accent)); border-radius: 50%; z-index: 1; animation: rotate 4s linear infinite; }
+        
+        .status-dot {
+            position: absolute; bottom: 8px; right: 8px;
+            width: 18px; height: 18px; background: var(--online);
+            border: 3px solid var(--bg-main); border-radius: 50%; z-index: 10;
+            box-shadow: 0 0 10px var(--online);
+            animation: pulse 2s infinite;
         }
 
-        /* Profile Section */
-        .profile-img-container {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 25px;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--bg-dark);
-            position: relative;
-            z-index: 5;
-        }
-
-        .glow-ring {
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            background: linear-gradient(45deg, var(--accent-red), #00f2fe, var(--accent-red));
-            border-radius: 50%;
-            z-index: 1;
-            animation: rotate 4s linear infinite;
-        }
-
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(67, 233, 123, 0); } 100% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0); } }
         @keyframes rotate { 100% { transform: rotate(360deg); } }
 
-        .name { font-size: 30px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 5px; }
-        .verified-check { background: #1877f2; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center; }
-        .sub-tag { font-size: 10px; color: var(--text-dim); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 30px; }
-
-        /* Social Link Buttons */
-        .links-stack { display: flex; flex-direction: column; gap: 15px; margin-bottom: 35px; }
-        .link-btn {
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            padding: 14px; border-radius: 15px; text-decoration: none; color: white;
-            font-weight: 700; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255,255,255,0.1);
+        .skill-badge {
+            background: var(--accent); color: white;
+            padding: 5px 15px; border-radius: 20px;
+            font-size: 11px; font-weight: bold; text-transform: uppercase;
+            letter-spacing: 1px; display: inline-block; margin-bottom: 15px;
         }
+
+        .name { font-size: 32px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .verified-check { background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+
+        /* Description Box */
+        .about-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-dim);
+            text-align: justify;
+            border: 1px solid var(--border);
+        }
+
+        .quote { font-style: italic; color: var(--accent); margin-top: 10px; display: block; text-align: center; font-weight: 600; }
+
+        .links-stack { display: flex; flex-direction: column; gap: 12px; margin: 25px 0; }
+        .link-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: 15px; text-decoration: none; color: white; font-weight: 700; transition: 0.3s; }
         .fb { background: #1877f2; }
         .tk { background: #000000; }
-        .link-btn:hover { transform: scale(1.03); filter: brightness(1.2); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .qr-trigger { background: var(--text-main); color: var(--bg-main); cursor: pointer; border: none; }
 
-        /* Stats Display */
-        .stats-row { display: flex; justify-content: space-around; padding: 20px 0; border-top: 1px solid var(--glass-border); margin-top: 10px; }
-        .stat-box .val { font-size: 22px; font-weight: 900; color: var(--accent-red); display: block; }
-        .stat-box .lab { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+        .top-controls { position: fixed; top: 25px; right: 25px; display: flex; gap: 10px; z-index: 100; }
+        .control-btn { background: var(--container-bg); border: 1px solid var(--border); padding: 12px; border-radius: 15px; cursor: pointer; color: var(--text-main); backdrop-filter: blur(10px); }
 
-        /* Menu & AI Bot */
-        .menu-toggle { position: fixed; top: 25px; right: 25px; background: var(--glass); border: 1px solid var(--glass-border); padding: 12px; border-radius: 15px; cursor: pointer; color: white; z-index: 100; }
-        .side-panel { display: none; position: fixed; top: 85px; right: 25px; width: 220px; background: rgba(0,0,0,0.95); border: 1px solid var(--accent-red); border-radius: 20px; padding: 15px; z-index: 99; }
-        .side-item { display: block; color: white; text-decoration: none; padding: 12px; text-align: center; background: rgba(255,255,255,0.05); border-radius: 10px; font-weight: bold; }
-        .side-item:hover { background: var(--accent-red); }
+        #qrModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
+        #qrcode { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; }
 
-        /* Time & Battery */
-        .info-bar { margin: 20px 0; }
-        #clock { font-size: 24px; font-weight: 800; text-shadow: 0 0 10px var(--accent-red); }
-        .battery-ui { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--text-dim); margin-top: 5px; }
-        .bat-box { width: 30px; height: 14px; border: 1px solid var(--text-dim); border-radius: 3px; padding: 1px; }
-        .bat-level { height: 100%; background: #43e97b; width: 100%; }
+        .stats-row { display: flex; justify-content: space-around; padding: 20px 0; border-top: 1px solid var(--border); }
+        .stat-box .val { font-size: 22px; font-weight: 900; color: var(--accent); display: block; }
+        .stat-box .lab { font-size: 10px; color: var(--text-dim); text-transform: uppercase; }
 
-        /* Music UI */
-        .player-pill { display: inline-flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.07); padding: 8px 20px; border-radius: 50px; margin-top: 15px; cursor: pointer; }
-        .play-icon { font-size: 18px; color: var(--accent-red); }
-
-        .footer { margin-top: 40px; font-size: 11px; color: var(--text-dim); opacity: 0.7; }
+        #clock { font-size: 24px; font-weight: 800; margin: 15px 0; }
+        .player-pill { display: inline-flex; align-items: center; gap: 10px; background: var(--border); padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+        .footer { margin-top: 30px; font-size: 11px; color: var(--text-dim); }
     </style>
 </head>
 <body>
 
     <div class="bg-particles" id="particles"></div>
 
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-    <div class="side-panel" id="sidePanel">
-        <a href="https://blesa123-bot.onrender.com/" class="side-item">🤖 Make your ai here</a>
+    <div class="top-controls">
+        <button class="control-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
+        <button class="control-btn" onclick="toggleMenu()">☰</button>
+    </div>
+
+    <div id="qrModal" onclick="this.style.display='none'">
+        <div id="qrcode"></div>
+        <p style="color:white; font-weight:bold;">Scan to visit Jerobie's World!</p>
     </div>
 
     <div class="container">
-        <div class="profile-img-container">
+        <div class="profile-img-container reveal">
             <div class="glow-ring"></div>
-            <img src="https://imgur.com/5e5eBdd.jpg" class="profile-img" alt="Jerobie">
+            <div class="status-dot"></div>
+            <img src="https://imgur.com/vHbeH2S.jpg" class="profile-img" alt="Jerobie">
         </div>
 
-        <h1 class="name">Jerobie <span class="verified-check">✓</span></h1>
-        <p class="sub-tag">JEROBIE-PORTFOLIO</p>
+        <div class="reveal"><div id="skillBadge" class="skill-badge">IT Student & Pro Dev</div></div>
+
+        <h1 class="name reveal">Jerobie <span class="verified-check">✓</span></h1>
+        
+        <div class="about-section reveal">
+            Jerobie is an IT student and results-driven developer specializing in chatbot development, automation, and AI-assisted systems. With hands-on experience in deploying scalable bots, API integrations, and clean code practices, he focuses on delivering high-quality solutions that provide real-world value.
+            <span class="quote">"하나님을 신뢰하라" 🌷</span>
+        </div>
 
         <div class="links-stack">
-            <a href="https://www.facebook.com/profile.php?id=61560890733272" class="link-btn fb" target="_blank">
-                <span>Facebook Profile</span>
-            </a>
-            <a href="https://www.tiktok.com/@tagaipon?_r=1&_t=ZS-93E1Hm6F3ot" class="link-btn tk" target="_blank">
-                <span>TikTok Account</span>
-            </a>
+            <a href="https://www.facebook.com/profile.php?id=61560890733272" class="link-btn fb reveal" target="_blank">Connect Facebook</a>
+            <a href="https://www.tiktok.com/@tagaipon?_r=1&_t=ZS-93E1Hm6F3ot" class="link-btn tk reveal" target="_blank">Watch TikTok</a>
+            <a href="https://m.me/61560890733272" class="link-btn reveal" style="background:#0084ff;">Direct Message</a>
+            <button class="link-btn qr-trigger reveal" onclick="showQR()">Get Digital QR Card</button>
         </div>
 
-        <div class="stats-row">
-            <div class="stat-box">
-                <span class="val">6767</span>
-                <span class="lab">Birth Year</span>
-            </div>
-            <div class="stat-box">
-                <span class="val">39M</span>
-                <span class="lab">Likes</span>
-            </div>
+        <div class="stats-row reveal">
+            <div class="stat-box"><span class="val">6767</span><span class="lab">Origin Year</span></div>
+            <div class="stat-box"><span class="val">39M</span><span class="lab">Influence</span></div>
         </div>
 
-        <div class="info-bar">
-            <div id="clock">00:00:00</div>
-            <div class="battery-ui">
-                <div class="bat-box"><div class="bat-level" id="batFill"></div></div>
-                <span id="batNum">100%</span>
-            </div>
+        <div id="clock" class="reveal">00:00:00</div>
+
+        <div class="player-pill reveal" onclick="handleMusic()">
+            <span id="pState">▶</span> <span style="font-size:11px;">System Audio</span>
         </div>
 
-        <div class="player-pill" onclick="handleMusic()">
-            <span id="pState" class="play-icon">▶</span>
-            <span style="font-size: 11px; font-weight: 600;">Play Portfolio BGM</span>
-        </div>
-
-        <div class="footer">
-            © 2026 Developed By Jerobie laug laug
-        </div>
+        <div class="footer reveal">© 2026 Developed By Jerobie laug laug</div>
     </div>
 
-    <audio id="audio" loop>
-        <source src="https://files.catbox.moe/ohqbir.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="audio" loop><source src="https://files.catbox.moe/ohqbir.mp3" type="audio/mpeg"></audio>
 
     <script>
-        // 1. Create Floating Particles
+        const skills = ["AI Architect", "Bot Developer", "IT Specialist", "Automation Pro", "UI Designer"];
+        document.getElementById('skillBadge').innerText = skills[Math.floor(Math.random() * skills.length)];
+
+        window.onload = () => {
+            document.querySelectorAll('.reveal').forEach((el, i) => {
+                setTimeout(() => {
+                    el.style.opacity = "1";
+                    el.style.transform = "translateY(0)";
+                    el.style.transition = "all 0.6s ease-out";
+                }, i * 100);
+            });
+        };
+
+        function showQR() {
+            document.getElementById('qrModal').style.display = 'flex';
+            document.getElementById('qrcode').innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 200, height: 200 });
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                btn.innerText = '☀️';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                btn.innerText = '🌙';
+            }
+        }
+
         const partContainer = document.getElementById('particles');
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 20; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
-            const size = Math.random() * 5 + 2 + 'px';
-            p.style.width = size; p.style.height = size;
+            p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
             p.style.left = Math.random() * 100 + 'vw';
             p.style.animationDelay = Math.random() * 10 + 's';
-            p.style.animationDuration = (Math.random() * 10 + 10) + 's';
             partContainer.appendChild(p);
         }
 
-        // 2. Real-time PHT Clock
-        function updateClock() {
-            const options = { timeZone: 'Asia/Manila', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('clock').innerText = new Intl.DateTimeFormat('en-US', options).format(new Date());
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'Asia/Manila' });
+        }, 1000);
 
-        // 3. Battery System
-        if (navigator.getBattery) {
-            navigator.getBattery().then(bat => {
-                const updateBat = () => {
-                    const level = Math.floor(bat.level * 100);
-                    document.getElementById('batNum').innerText = level + "%";
-                    document.getElementById('batFill').style.width = level + "%";
-                };
-                updateBat();
-                bat.onlevelchange = updateBat;
-            });
-        }
-
-        // 4. Menu Toggle
-        function toggleMenu() {
-            const panel = document.getElementById('sidePanel');
-            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-        }
-
-        // 5. Music Control
         const track = document.getElementById('audio');
-        const pBtn = document.getElementById('pState');
         function handleMusic() {
-            if (track.paused) {
-                track.play();
-                pBtn.innerText = '⏸';
-            } else {
-                track.pause();
-                pBtn.innerText = '▶';
-            }
+            if (track.paused) { track.play(); document.getElementById('pState').innerText = '⏸'; }
+            else { track.pause(); document.getElementById('pState').innerText = '▶'; }
+        }
+        
+        function toggleMenu() {
+            window.open('https://blesa123-bot.onrender.com/', '_blank');
         }
     </script>
 </body>
