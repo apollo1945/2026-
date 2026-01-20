@@ -52,7 +52,6 @@ function showQR() {
     new QRCode(document.getElementById("qrcode"), {text: window.location.href, width:200, height:200});
 }
 
-// 3-Line Menu Logic
 function toggleMenu() { document.getElementById('aiModal').style.display = 'flex'; }
 function closeModal() { document.getElementById('aiModal').style.display = 'none'; }
 
