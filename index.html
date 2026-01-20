@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jerobie - Portfolio</title>
     
-    <link rel="icon" href="https://imgur.com/5e5eBdd.jpg" type="image/jpeg">
+    <link rel="icon" href="https://media1.giphy.com/media/6wdZAQm2unplu/giphy.gif" type="image/gif">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
@@ -52,72 +52,99 @@
         .container {
             max-width: 440px; width: 90%;
             background: var(--container-bg);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border);
-            border-radius: 30px; padding: 40px 25px;
-            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border-radius: 35px; padding: 40px 25px;
+            text-align: center; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             z-index: 10;
+            animation: containerGlow 5s infinite alternate;
         }
 
-        .profile-img-container { position: relative; width: 130px; height: 130px; margin: 0 auto 20px; }
-        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-main); position: relative; z-index: 5; }
-        .glow-ring { position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; background: linear-gradient(45deg, var(--accent), #00f2fe, var(--accent)); border-radius: 50%; z-index: 1; animation: rotate 4s linear infinite; }
+        @keyframes containerGlow {
+            from { box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+            to { box-shadow: 0 25px 60px rgba(255, 23, 68, 0.1); }
+        }
+
+        .profile-img-container { position: relative; width: 140px; height: 140px; margin: 0 auto 20px; }
+        .profile-img { 
+            width: 100%; height: 100%; border-radius: 50%; 
+            object-fit: cover; border: 4px solid var(--bg-main); 
+            position: relative; z-index: 5; background: #000;
+        }
+        
+        .glow-ring { 
+            position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; 
+            background: linear-gradient(45deg, var(--accent), #00f2fe, var(--accent)); 
+            border-radius: 50%; z-index: 1; animation: rotate 3s linear infinite; 
+        }
         
         .status-dot {
-            position: absolute; bottom: 8px; right: 8px;
-            width: 18px; height: 18px; background: var(--online);
-            border: 3px solid var(--bg-main); border-radius: 50%; z-index: 10;
-            box-shadow: 0 0 10px var(--online);
+            position: absolute; bottom: 10px; right: 10px;
+            width: 20px; height: 20px; background: var(--online);
+            border: 4px solid var(--bg-main); border-radius: 50%; z-index: 10;
+            box-shadow: 0 0 15px var(--online);
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(67, 233, 123, 0); } 100% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0); } }
+        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(67, 233, 123, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(67, 233, 123, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(67, 233, 123, 0); } }
         @keyframes rotate { 100% { transform: rotate(360deg); } }
 
         .skill-badge {
             background: var(--accent); color: white;
-            padding: 5px 15px; border-radius: 20px;
-            font-size: 11px; font-weight: bold; text-transform: uppercase;
-            letter-spacing: 1px; display: inline-block; margin-bottom: 15px;
+            padding: 6px 18px; border-radius: 50px;
+            font-size: 11px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1.5px; display: inline-block; margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(255, 23, 68, 0.3);
         }
 
-        .name { font-size: 32px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .name { font-size: 32px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px; letter-spacing: -0.5px; }
         .verified-check { background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 
-        /* Description Box */
         .about-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-dim);
-            text-align: justify;
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px; padding: 22px; margin: 25px 0;
+            font-size: 14.5px; line-height: 1.7; color: var(--text-dim);
+            text-align: justify; border: 1px solid var(--border);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
         }
 
-        .quote { font-style: italic; color: var(--accent); margin-top: 10px; display: block; text-align: center; font-weight: 600; }
+        .quote { font-style: italic; color: var(--accent); margin-top: 15px; display: block; text-align: center; font-weight: 700; font-size: 16px; }
 
-        .links-stack { display: flex; flex-direction: column; gap: 12px; margin: 25px 0; }
-        .link-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: 15px; text-decoration: none; color: white; font-weight: 700; transition: 0.3s; }
-        .fb { background: #1877f2; }
-        .tk { background: #000000; }
+        .links-stack { display: flex; flex-direction: column; gap: 14px; margin: 25px 0; }
+        .link-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px; 
+            padding: 16px; border-radius: 18px; text-decoration: none; color: white; 
+            font-weight: 800; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .link-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        
+        .fb { background: #1877f2; box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3); }
+        .tk { background: #000000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .qr-trigger { background: var(--text-main); color: var(--bg-main); cursor: pointer; border: none; }
 
-        .top-controls { position: fixed; top: 25px; right: 25px; display: flex; gap: 10px; z-index: 100; }
-        .control-btn { background: var(--container-bg); border: 1px solid var(--border); padding: 12px; border-radius: 15px; cursor: pointer; color: var(--text-main); backdrop-filter: blur(10px); }
+        .top-controls { position: fixed; top: 25px; right: 25px; display: flex; gap: 12px; z-index: 100; }
+        .control-btn { 
+            background: var(--container-bg); border: 1px solid var(--border); 
+            padding: 14px; border-radius: 18px; cursor: pointer; color: var(--text-main); 
+            backdrop-filter: blur(10px); transition: 0.3s;
+        }
+        .control-btn:hover { background: var(--border); transform: rotate(15deg); }
 
-        #qrModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
-        #qrcode { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; }
+        #qrModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px); }
+        #qrcode { background: white; padding: 25px; border-radius: 25px; margin-bottom: 20px; }
 
-        .stats-row { display: flex; justify-content: space-around; padding: 20px 0; border-top: 1px solid var(--border); }
-        .stat-box .val { font-size: 22px; font-weight: 900; color: var(--accent); display: block; }
-        .stat-box .lab { font-size: 10px; color: var(--text-dim); text-transform: uppercase; }
+        .stats-row { display: flex; justify-content: space-around; padding: 25px 0; border-top: 1px solid var(--border); }
+        .stat-box .val { font-size: 24px; font-weight: 900; color: var(--accent); display: block; }
+        .stat-box .lab { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
 
-        #clock { font-size: 24px; font-weight: 800; margin: 15px 0; }
-        .player-pill { display: inline-flex; align-items: center; gap: 10px; background: var(--border); padding: 8px 20px; border-radius: 50px; cursor: pointer; }
-        .footer { margin-top: 30px; font-size: 11px; color: var(--text-dim); }
+        #clock { font-size: 26px; font-weight: 900; margin: 20px 0; letter-spacing: 2px; color: var(--text-main); }
+        .player-pill { display: inline-flex; align-items: center; gap: 12px; background: var(--border); padding: 10px 25px; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        .player-pill:hover { background: rgba(255, 23, 68, 0.2); }
+        
+        .footer { margin-top: 35px; font-size: 11px; color: var(--text-dim); opacity: 0.6; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -131,14 +158,14 @@
 
     <div id="qrModal" onclick="this.style.display='none'">
         <div id="qrcode"></div>
-        <p style="color:white; font-weight:bold;">Scan to visit Jerobie's World!</p>
+        <p style="color:white; font-weight:bold; letter-spacing: 1px;">JEROBIE'S DIGITAL CARD</p>
     </div>
 
     <div class="container">
         <div class="profile-img-container reveal">
             <div class="glow-ring"></div>
             <div class="status-dot"></div>
-            <img src="https://imgur.com/vHbeH2S.jpg" class="profile-img" alt="Jerobie">
+            <img src="https://media1.giphy.com/media/6wdZAQm2unplu/giphy.gif" class="profile-img" alt="Jerobie">
         </div>
 
         <div class="reveal"><div id="skillBadge" class="skill-badge">IT Student & Pro Dev</div></div>
@@ -153,7 +180,7 @@
         <div class="links-stack">
             <a href="https://www.facebook.com/profile.php?id=61560890733272" class="link-btn fb reveal" target="_blank">Connect Facebook</a>
             <a href="https://www.tiktok.com/@tagaipon?_r=1&_t=ZS-93E1Hm6F3ot" class="link-btn tk reveal" target="_blank">Watch TikTok</a>
-            <a href="https://m.me/61560890733272" class="link-btn reveal" style="background:#0084ff;">Direct Message</a>
+            <a href="https://m.me/61560890733272" class="link-btn reveal" style="background:#0084ff; box-shadow: 0 5px 15px rgba(0, 132, 255, 0.3);">Direct Message</a>
             <button class="link-btn qr-trigger reveal" onclick="showQR()">Get Digital QR Card</button>
         </div>
 
@@ -165,7 +192,7 @@
         <div id="clock" class="reveal">00:00:00</div>
 
         <div class="player-pill reveal" onclick="handleMusic()">
-            <span id="pState">▶</span> <span style="font-size:11px;">System Audio</span>
+            <span id="pState">▶</span> <span style="font-size:11px; font-weight: 800;">SYSTEM AUDIO</span>
         </div>
 
         <div class="footer reveal">© 2026 Developed By Jerobie laug laug</div>
@@ -182,8 +209,8 @@
                 setTimeout(() => {
                     el.style.opacity = "1";
                     el.style.transform = "translateY(0)";
-                    el.style.transition = "all 0.6s ease-out";
-                }, i * 100);
+                    el.style.transition = "all 0.8s cubic-bezier(0.2, 1, 0.3, 1)";
+                }, i * 120);
             });
         };
 
@@ -206,7 +233,7 @@
         }
 
         const partContainer = document.getElementById('particles');
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 25; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
             p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
